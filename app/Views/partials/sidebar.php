@@ -49,25 +49,27 @@
 </script>
 
 <script>
+  // initial state
+  localStorage.setItem('state', 'all');
+
+  // user click on all tasks
   const getAllTasks = document.querySelector('a[all]');
   getAllTasks.addEventListener('click', () => {
     localStorage.setItem('state', 'all');
     renderTasks();
-  })
-</script>
+  });
 
-<script>
+  // user click on unfinished tasks
   const getUnfinishedTasks = document.querySelector('a[unfinished]');
   getUnfinishedTasks.addEventListener('click', () => {
     localStorage.setItem('state', 'unfinished');
     renderTasks(0);
-  })
-</script>
+  });
 
-<script>
+  // user click on done tasks
   const getDoneTasks = document.querySelector('a[done]');
   getDoneTasks.addEventListener('click', () => {
     localStorage.setItem('state', 'done');
     renderTasks(1);
-  })
+  });
 </script>

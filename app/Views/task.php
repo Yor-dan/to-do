@@ -19,6 +19,7 @@
 
 </div>
 
-<script>
+<script type="module">
+  import { renderTasks } from './js/task.js';
   renderTasks();
 </script>
