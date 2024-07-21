@@ -5,7 +5,6 @@ const getTasks = async () => {
     const response = await fetch('/task');
     const data = await response.json();
     tasks.push(...data);
-    console.log(tasks);
   } catch (error) {
     // handle error
   };

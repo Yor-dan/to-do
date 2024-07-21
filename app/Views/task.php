@@ -21,5 +21,11 @@
 
 <script type="module">
   import { renderTasks } from './js/task.js';
-  renderTasks();
+  import addFunctions from './js/taskFunctions.js';
+  await renderTasks();
+
+  const taskItems = document.querySelectorAll('[task-id]');
+  for (const taskItem of taskItems) {
+    addFunctions(taskItem);
+  };
 </script>
