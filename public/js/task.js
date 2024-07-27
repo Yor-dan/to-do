@@ -1,6 +1,6 @@
-const tasks = [];
+export const tasks = [];
 
-const getTasks = async () => {
+export const getTasks = async () => {
   try {
     const response = await fetch('/task');
     const data = await response.json();
@@ -16,7 +16,6 @@ import taskTemplate from './taskTemplate.js';
 
 export const renderTasks = async () => {
   try {
-    await getTasks();
     tasks.forEach(task => {
       taskTable.insertAdjacentHTML('beforeend', taskTemplate(task));
     });

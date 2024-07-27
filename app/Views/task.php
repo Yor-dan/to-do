@@ -20,8 +20,10 @@
 </div>
 
 <script type="module">
-  import { renderTasks } from './js/task.js';
+  import { getTasks, renderTasks } from './js/task.js';
   import addFunctions from './js/taskFunctions.js';
+
+  await getTasks();
   await renderTasks();
 
   const taskItems = document.querySelectorAll('[task-id]');
