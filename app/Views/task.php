@@ -20,14 +20,10 @@
 </div>
 
 <script type="module">
-  import { getTasks, renderTasks } from './js/task.js';
-  import addFunctions from './js/taskFunctions.js';
+  import { TaskManager } from './js/TaskManager.js';
 
-  await getTasks();
-  await renderTasks();
-
-  const taskItems = document.querySelectorAll('[task-id]');
-  for (const taskItem of taskItems) {
-    addFunctions(taskItem);
-  };
+  const taskManager = new TaskManager();
+  await taskManager.fetch();
+  await taskManager.render();
+  taskManager.addFunctionality();
 </script>

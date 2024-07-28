@@ -1,6 +1,6 @@
 export default (task) => {
-  const isChecked = task['is_done'] == 1 ? 'checked' : '';
-  const isLineThrough = task['is_done'] == 1 ? 'line-through' : '';
+  const isChecked = task['isDone'] == 1 ? 'checked' : '';
+  const isLineThrough = task['isDone'] == 1 ? 'line-through' : '';
 
   return `
   <tr task-id="${task['id']}" class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">

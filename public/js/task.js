@@ -1,25 +1,12 @@
-export const tasks = [];
-
-export const getTasks = async () => {
-  try {
-    const response = await fetch('/task');
-    const data = await response.json();
-    tasks.push(...data);
-  } catch (error) {
-    // handle error
+export default class {
+  constructor({ id, task, is_done, deadline }) {
+    this.id = id;
+    this.task = task;
+    this.isDone = is_done;
+    this.deadline = deadline;
   };
-};
 
-// === Rendering tasks ===
-const taskTable = document.getElementById('task-table');
-import taskTemplate from './taskTemplate.js';
-
-export const renderTasks = async () => {
-  try {
-    tasks.forEach(task => {
-      taskTable.insertAdjacentHTML('beforeend', taskTemplate(task));
-    });
-  } catch (error) {
-    // handle error
+  async toggleDone() {
+    this.isDone = this.isDone === 0 ? 1 : 0;
   };
 };

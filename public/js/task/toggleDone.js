@@ -1,12 +1,10 @@
-import { tasks } from './task.js';
-
-export default (taskItem) => {
-  const taskId = taskItem.getAttribute('task-id');
+export default (taskId, callback) => {
+  const taskItem = document.querySelector(`[task-id="${taskId}"]`);
   // strike through when checked
   const checkbox = taskItem.querySelector('input[type="checkbox"]');
   const textbox = taskItem.querySelector('input[type="text"]');
 
-  checkbox.addEventListener('change', async () => {
+  checkbox.addEventListener('change', () => {
     if (!checkbox.checked) {
       textbox.classList.remove('line-through');
     } else {
@@ -23,9 +21,7 @@ export default (taskItem) => {
         isDone: checkbox.checked,
       }),
     });
-    
-    // update global variable (tasks array)
-    const taskIndex = tasks.findIndex(task => task.id === taskId);
-    tasks[taskIndex].is_done = checkbox.checked;
+
+    callback();
   });
 };
