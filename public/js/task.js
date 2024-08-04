@@ -18,17 +18,19 @@ export default class {
     }));
   };
 
+  get element() {
+    return document.querySelector(`[task-id="${this.id}"]`);
+  }
+
   toggleDone() {
     this.isDone = this.isDone === 0 ? 1 : 0;
   };
 
   hide() {
-    const element = document.querySelector(`[task-id="${this.id}"]`);
-    element.style.display = 'none';
-  }
+    this.element.style.display = 'none';
+  };
   
   show() {
-    const element = document.querySelector(`[task-id="${this.id}"]`);
-    element.style.display = 'table-row';
-  }
+    this.element.style.display = 'table-row';
+  };
 };
