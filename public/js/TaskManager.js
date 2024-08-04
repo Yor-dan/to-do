@@ -1,12 +1,10 @@
 import Task from './Task.js';
-import template from './task/HTMLTemplate.js';
 import toggleDone from './task/toggleDone.js';
 
 export class TaskManager {
   #tasks = [];
-  #taskTable = document.getElementById('task-table');
 
-  async get() {
+  get tasks() {
     return this.#tasks;
   };
 
@@ -22,23 +20,13 @@ export class TaskManager {
     };
   };
 
-  async render() {
-    try {
-      this.#tasks.forEach(task => {
-        this.#taskTable.insertAdjacentHTML('beforeend', template(task));
-      });
-    } catch (error) {
-      // handle error
-    };
+  render() {
+    this.#tasks.forEach(task => task.render());
   };
 
-  async addFunctionality() {
-    try {
-      this.#tasks.forEach(task => {
-        toggleDone(task.id, task.toggleDone.bind(task));
-      });
-    } catch {
-      // handle error
-    };
+  addFunctionality() {
+    this.#tasks.forEach(task => {
+      toggleDone(task.id, task.toggleDone.bind(task));
+    });
   };
 };

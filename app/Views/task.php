@@ -20,9 +20,7 @@
 </div>
 
 <script type="module">
-  import { TaskManager } from './js/TaskManager.js';
-
-  const taskManager = new TaskManager();
+  import { taskManager } from './js/instances/taskManagerInstance.js';
   await taskManager.fetch();
   await taskManager.render();
   taskManager.addFunctionality();
