@@ -20,6 +20,10 @@ export default class {
     this.checkbox.addEventListener('change', () => {
       this.toggleDone();
     });
+
+    this.textbox.addEventListener('change', () => {
+      this.updateTask();
+    });
   };
 
   get element() {
@@ -51,6 +55,20 @@ export default class {
       body: JSON.stringify({
         taskId: this.id,
         isDone: this.checkbox.checked,
+      }),
+    });
+  };
+
+  updateTask() {
+    this.task = this.textbox.value;
+
+    fetch(`/task/${this.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        task: this.task,
       }),
     });
   };
