@@ -14,16 +14,45 @@ export default class {
       id: this.id,
       task: this.task,
       isDone: this.isDone,
-      deadline: this.deadline
+      deadline: this.deadline,
     }));
+
+    this.checkbox.addEventListener('change', () => {
+      this.toggleDone();
+    });
   };
 
   get element() {
     return document.querySelector(`[task-id="${this.id}"]`);
-  }
+  };
+
+  get checkbox() {
+    return this.element.querySelector('input[type="checkbox"]');
+  };
+
+  get textbox() {
+    return this.element.querySelector('input[type="text"]');
+  };
 
   toggleDone() {
-    this.isDone = this.isDone === 0 ? 1 : 0;
+    if (!this.checkbox.checked) {
+      this.textbox.classList.remove('line-through');
+    } else {
+      this.textbox.classList.add('line-through');
+    };
+
+    this.isDone = this.isDone === '0' ? '1' : '0';
+
+    fetch(`/task/done/${this.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        taskId: this.id,
+        isDone: this.checkbox.checked,
+      }),
+    });
   };
 
   hide() {

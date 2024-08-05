@@ -24,7 +24,7 @@ export const showAll = () => {
 export const showUnfinished = () => {
   taskManager.tasks.forEach(task => {
     task.show();
-    if (task.isDone == 1) {
+    if (task.isDone === '1') {
       task.hide();
     };
   });
@@ -34,7 +34,7 @@ export const showUnfinished = () => {
 export const showDone = () => {
   taskManager.tasks.forEach(task => {
     task.show();
-    if (task.isDone == 0) {
+    if (task.isDone === '0') {
       task.hide();
     };
   });

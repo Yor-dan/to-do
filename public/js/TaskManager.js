@@ -1,5 +1,4 @@
 import Task from './Task.js';
-import toggleDone from './task/toggleDone.js';
 
 export class TaskManager {
   #tasks = [];
@@ -22,11 +21,5 @@ export class TaskManager {
 
   render() {
     this.#tasks.forEach(task => task.render());
-  };
-
-  addFunctionality() {
-    this.#tasks.forEach(task => {
-      toggleDone(task.id, task.toggleDone.bind(task));
-    });
   };
 };
