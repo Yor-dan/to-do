@@ -12,7 +12,7 @@ export default (task) => {
     </th>
       <td class="px-6 py-4">${task['deadline']}</td>
       <td class="px-6 py-4">
-        <img src="/assets/delete.svg" class="cursor-pointer" alt="delete">
+        <img src="/assets/delete.svg" delete class="cursor-pointer" alt="delete">
       </td>
   </tr>
   `;

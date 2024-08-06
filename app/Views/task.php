@@ -21,5 +21,5 @@
 <script type="module">
   import { taskManager } from './js/instances/taskManagerInstance.js';
   await taskManager.fetch();
-  await taskManager.render();
+  await taskManager.renderAll();
 </script>

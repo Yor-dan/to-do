@@ -19,6 +19,7 @@ export const showAll = () => {
   taskManager.tasks.forEach(task => {
     task.show();
   });
+  console.log(taskManager.tasks);
 };
 
 export const showUnfinished = () => {
@@ -28,7 +29,6 @@ export const showUnfinished = () => {
       task.hide();
     };
   });
-  console.log(taskManager.tasks);
 };
 
 export const showDone = () => {
@@ -38,5 +38,4 @@ export const showDone = () => {
       task.hide();
     };
   });
-  console.log(taskManager.tasks);
 };
