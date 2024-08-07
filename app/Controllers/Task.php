@@ -43,6 +43,7 @@ class Task extends BaseController
     }
 
     $this->Task->insertTask($task);
+    return $this->response->setJSON($task);
   }
 
   public function deleteTask($id)

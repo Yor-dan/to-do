@@ -34,27 +34,35 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+  import Task from './js/Task.js';
+  import { taskManager } from './js/instances/taskManagerInstance.js';
+
   const newTaskForm = document.getElementById('new-task-form');
-  const newTask = document.querySelector('input[name="task"]');
+  const textbox = document.querySelector('input[name="task"]');
   const deadline = document.querySelector('input[name="deadline"]');
 
-  newTaskForm.addEventListener('submit', (e) => {
+  newTaskForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    fetch('/task', {
+    const response = await fetch('/task', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        task: newTask.value,
+        task: textbox.value,
         deadline: deadline.value,
       }),
     });
+    const data = await response.json();
+    const newTask = new Task({...data, is_done: `${data.is_done}`});
+    taskManager.insert(newTask);
+    newTask.render();
+    newTask.deleteButton.addEventListener('click', () => {
+      taskManager.deleteTask(newTask);
+    });
 
-    renderTasks();
-
-    newTask.value = '';
+    textbox.value = '';
     deadline.value = '';
 
     const getAllTasks = document.querySelector('a[all]');
@@ -68,5 +76,7 @@
     const getDoneTasks = document.querySelector('a[done]');
     getDoneTasks.classList.remove('dark:text-blue-500');
     getDoneTasks.classList.add('dark:text-white');
+
+    taskManager.showAll();
   });
 </script>

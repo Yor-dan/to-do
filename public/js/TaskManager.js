@@ -7,6 +7,14 @@ export class TaskManager {
     return this.#tasks;
   };
 
+  insert(task) {
+    this.#tasks.push(task);
+  };
+
+  sort() {
+    this.#tasks.sort((a, b) => a.isDone - b.isDone);
+  };
+
   async fetch() {
     try {
       const response = await fetch('/task');
@@ -33,5 +41,9 @@ export class TaskManager {
         this.deleteTask(task);
       });
     });
+  };
+
+  showAll() {
+    this.#tasks.forEach(task => task.show());
   };
 };
