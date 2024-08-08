@@ -20,6 +20,7 @@ export default class {
 
     this.checkbox.addEventListener('change', () => {
       this.toggleDone();
+      this.strikeThrough();
     });
 
     this.textbox.addEventListener('change', () => {
@@ -48,14 +49,8 @@ export default class {
     return this.element.querySelector('img[delete]');
   };
 
-  // API calls
+  // API calls & data manipulation methods
   toggleDone() {
-    if (!this.checkbox.checked) {
-      this.textbox.classList.remove('line-through');
-    } else {
-      this.textbox.classList.add('line-through');
-    };
-
     this.isDone = this.isDone === '0' ? '1' : '0';
 
     fetch(`/task/done/${this.id}`, {
@@ -91,6 +86,14 @@ export default class {
   };
 
   // UI related methods
+  strikeThrough() {
+    if (!this.checkbox.checked) {
+      this.textbox.classList.remove('line-through');
+    } else {
+      this.textbox.classList.add('line-through');
+    };
+  };
+
   hide() {
     this.element.style.display = 'none';
   };
