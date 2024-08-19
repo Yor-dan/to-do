@@ -33,41 +33,45 @@
   </div>
 </aside>
 
-<script>
-  // change color of category btn
-  const toggleColorBtns = document.querySelectorAll('a[list-toggle-color]');
-  toggleColorBtns.forEach(toggleColorBtn => {
-    toggleColorBtn.addEventListener('click', () => {
-      toggleColorBtns.forEach(btn => {
-        btn.classList.remove('dark:text-blue-500');
-        btn.classList.add('dark:text-white');
+<script type="module">
+  const categoryButtons = document.querySelectorAll('a[list-toggle-color]');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      categoryButtons.forEach(button => {
+        button.classList.remove('dark:text-blue-500');
+        button.classList.add('dark:text-white');
       });
-      toggleColorBtn.classList.remove('dark:text-white');
-      toggleColorBtn.classList.add('dark:text-blue-500');
+      button.classList.remove('dark:text-white');
+      button.classList.add('dark:text-blue-500');
     });
   });
 </script>
 
-<script>
-  const getAllTasks = document.querySelector('a[all]');
-  getAllTasks.addEventListener('click', () => {
-    localStorage.setItem('state', 'all');
-    renderTasks();
-  })
-</script>
+<script type="module">
+  import taskManager from './js/task/Manager.js';
 
-<script>
-  const getUnfinishedTasks = document.querySelector('a[unfinished]');
-  getUnfinishedTasks.addEventListener('click', () => {
-    localStorage.setItem('state', 'unfinished');
-    renderTasks(0);
-  })
-</script>
+  // user click on all tasks
+  const all = document.querySelector('a[all]');
+  all.addEventListener('click', () => {
+    taskManager.showAll();
+  });
 
-<script>
-  const getDoneTasks = document.querySelector('a[done]');
-  getDoneTasks.addEventListener('click', () => {
-    localStorage.setItem('state', 'done');
-    renderTasks(1);
-  })
+  // user click on unfinished tasks
+  const incomplete = document.querySelector('a[unfinished]');
+  incomplete.addEventListener('click', () => {
+    taskManager.showIncomplete();
+  });
+
+  // user click on done tasks
+  const complete = document.querySelector('a[done]');
+  complete.addEventListener('click', () => {
+    taskManager.showCompleted();
+  });
+
+  document.addEventListener('toggleDone', (e) => {
+    if (taskManager.toShow !== 'all') {
+      e.detail.task.hide();
+    };
+  });
 </script>

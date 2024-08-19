@@ -43,6 +43,8 @@ class Task extends BaseController
     }
 
     $this->Task->insertTask($task);
+    $task['deadline'] = date('j F Y', strtotime($task['deadline']));
+    return $this->response->setJSON($task);
   }
 
   public function deleteTask($id)
