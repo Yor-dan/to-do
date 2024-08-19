@@ -1,17 +1,20 @@
-import template from './task/HTMLTemplate.js';
+import Base from './Base.js';
+import template from './HTMLTemplate.js';
 
-export default class {
-  constructor({ id, task, is_done, deadline }) {
-    this.id = id;
-    this.task = task;
-    this.isDone = is_done;
-    this.deadline = deadline;
+export default class extends Base {
+  constructor(id, task, isDone, deadline, container, renderHere) {
+    super(id, task, isDone, deadline);
+    this.container = container;
+    this.renderHere = document.getElementById(renderHere);
+    Object.seal(this);
+  };
+  
+  containerRemove() {
+    this.container.remove(this.id);
   };
 
-  #renderHere = document.getElementById('task-table');
-
   render() {
-    this.#renderHere.insertAdjacentHTML('beforeend', template({
+    this.renderHere.insertAdjacentHTML('beforeend', template({
       id: this.id,
       task: this.task,
       isDone: this.isDone,
@@ -19,16 +22,20 @@ export default class {
     }));
 
     this.checkbox.addEventListener('change', () => {
-      this.toggleDone();
-      this.strikeThrough();
+      this.toggleDonenFetch();
+      this.toggleStrikeThrough();
+      this.checkbox.dispatchEvent(new CustomEvent(
+        'toggleDone', { detail: {task: this}, bubbles: true }
+      ));
     });
 
     this.textbox.addEventListener('change', () => {
-      this.updateTask();
+      this.updateTasknFetch();
     });
 
     this.deleteButton.addEventListener('click', () => {
-      this.remove();
+      this.DOMRemove();
+      this.containerRemove();
       this.delete();
     });
   };
@@ -50,8 +57,8 @@ export default class {
   };
 
   // API calls & data manipulation methods
-  toggleDone() {
-    this.isDone = this.isDone === '0' ? '1' : '0';
+  toggleDonenFetch() {
+    this.toggleDone();
 
     fetch(`/task/done/${this.id}`, {
       method: 'PUT',
@@ -65,8 +72,8 @@ export default class {
     });
   };
 
-  updateTask() {
-    this.task = this.textbox.value;
+  updateTasknFetch() {
+    this.updateTask(this.textbox.value);
 
     fetch(`/task/${this.id}`, {
       method: 'PUT',
@@ -86,7 +93,7 @@ export default class {
   };
 
   // UI related methods
-  strikeThrough() {
+  toggleStrikeThrough() {
     if (!this.checkbox.checked) {
       this.textbox.classList.remove('line-through');
     } else {
@@ -102,7 +109,7 @@ export default class {
     this.element.style.display = 'table-row';
   };
 
-  remove() {
+  DOMRemove() {
     this.element.remove();
   };
 };

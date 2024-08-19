@@ -19,7 +19,21 @@
 </div>
 
 <script type="module">
-  import { taskManager } from './js/instances/taskManagerInstance.js';
-  await taskManager.fetch();
-  await taskManager.renderAll();
+  import Wrapper from './js/task/Wrapper.js';
+  import taskContainer from './js/task/Container.js';
+  
+  const raw = await fetch('/task');
+  const tasks = await raw.json();
+  tasks.forEach(task => {
+    const newTask = new Wrapper(
+      task.id,
+      task.task,
+      task.is_done,
+      task.deadline,
+      taskContainer,
+      'task-table'
+    )
+    taskContainer.add(newTask);
+    newTask.render();
+  });
 </script>

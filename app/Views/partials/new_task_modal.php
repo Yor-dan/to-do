@@ -35,9 +35,10 @@
 </div>
 
 <script type="module">
-  import Task from './js/Task.js';
-  import { taskManager } from './js/instances/taskManagerInstance.js';
-
+  import Task from './js/task/Wrapper.js';
+  import taskContainer from './js/task/Container.js';
+  import taskManager from './js/task/Manager.js';
+  
   const newTaskForm = document.getElementById('new-task-form');
   const textbox = document.querySelector('input[name="task"]');
   const deadline = document.querySelector('input[name="deadline"]');
@@ -55,12 +56,16 @@
       }),
     });
     const data = await response.json();
-    const newTask = new Task({...data, is_done: `${data.is_done}`});
-    taskManager.insert(newTask);
+    const newTask = new Task(
+      data.id,
+      data.task,
+      `${data.is_done}`,
+      data.deadline,
+      taskContainer,
+      'task-table'
+    );
+    taskContainer.add(newTask);
     newTask.render();
-    newTask.deleteButton.addEventListener('click', () => {
-      taskManager.deleteTask(newTask);
-    });
 
     textbox.value = '';
     deadline.value = '';

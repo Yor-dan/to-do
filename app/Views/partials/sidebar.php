@@ -34,29 +34,44 @@
 </aside>
 
 <script type="module">
-  import { categoryBtnToggleColor } from '/js/ViewManager.js';
-  // change color of category btn
-  categoryBtnToggleColor();
+  const categoryButtons = document.querySelectorAll('a[list-toggle-color]');
+
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      categoryButtons.forEach(button => {
+        button.classList.remove('dark:text-blue-500');
+        button.classList.add('dark:text-white');
+      });
+      button.classList.remove('dark:text-white');
+      button.classList.add('dark:text-blue-500');
+    });
+  });
 </script>
 
 <script type="module">
-  import { showAll, showUnfinished, showDone } from './js/ViewManager.js';
+  import taskManager from './js/task/Manager.js';
 
   // user click on all tasks
-  const getAllTasks = document.querySelector('a[all]');
-  getAllTasks.addEventListener('click', () => {
-    showAll();
+  const all = document.querySelector('a[all]');
+  all.addEventListener('click', () => {
+    taskManager.showAll();
   });
 
   // user click on unfinished tasks
-  const getUnfinishedTasks = document.querySelector('a[unfinished]');
-  getUnfinishedTasks.addEventListener('click', () => {
-    showUnfinished();
+  const incomplete = document.querySelector('a[unfinished]');
+  incomplete.addEventListener('click', () => {
+    taskManager.showIncomplete();
   });
 
   // user click on done tasks
-  const getDoneTasks = document.querySelector('a[done]');
-  getDoneTasks.addEventListener('click', () => {
-    showDone();
+  const complete = document.querySelector('a[done]');
+  complete.addEventListener('click', () => {
+    taskManager.showCompleted();
+  });
+
+  document.addEventListener('toggleDone', (e) => {
+    if (taskManager.toShow !== 'all') {
+      e.detail.task.hide();
+    };
   });
 </script>
