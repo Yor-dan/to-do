@@ -11,6 +11,7 @@ class Container {
   };
 
   get items() {
+    this.#container.sort((a, b) => a.isDone - b.isDone);
     return this.#container;
   };
 

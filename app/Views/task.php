@@ -34,6 +34,6 @@
       'task-table'
     )
     taskContainer.add(newTask);
-    newTask.render();
+    newTask.render('beforeend');
   });
 </script>

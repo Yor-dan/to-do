@@ -13,8 +13,8 @@ export default class extends Base {
     this.container.remove(this.id);
   };
 
-  render() {
-    this.renderHere.insertAdjacentHTML('beforeend', template({
+  render(position) {
+    this.renderHere.insertAdjacentHTML(position, template({
       id: this.id,
       task: this.task,
       isDone: this.isDone,

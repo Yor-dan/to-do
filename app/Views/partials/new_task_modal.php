@@ -65,7 +65,7 @@
       'task-table'
     );
     taskContainer.add(newTask);
-    newTask.render();
+    newTask.render('afterbegin');
 
     textbox.value = '';
     deadline.value = '';
