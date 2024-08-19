@@ -6,4 +6,4 @@ deployment:
     - sed -i 's|../app/Config/Paths.php|../to-do/app/Config/Paths.php|g' public/index.php
     - /bin/cp -r /home/yordanbi/repositories/to-do/* $TODO
     - /bin/cp -r /home/yordanbi/repositories/to-do/public/* $PUBLIC
-    - cd $TODO && composer install
+    - cd $TODO && composer update
