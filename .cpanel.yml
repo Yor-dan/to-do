@@ -1,9 +1,9 @@
 ---
 deployment:
   tasks:
-    - sed -i 's|../app/Config/Paths.php|../to-do/app/Config/Paths.php|' public/index.php
-    - sed -i 's|http://localhost:8080/|https://todo.yordanbian.my.id/|' app/Config/App.php
+    # - sed -i 's|../app/Config/Paths.php|../to-do/app/Config/Paths.php|' public/index.php
+    # - sed -i 's|http://localhost:8080/|https://todo.yordanbian.my.id/|' app/Config/App.php
     - export TODO=/home/yordanbi/to-do/
     - export PUBLIC=/home/yordanbi/todo.yordanbian.my.id/
-    - rsync -av --exclude 'public' . $TODO
-    - /bin/cp -R public/* $PUBLIC
+    # - rsync -av --exclude 'public' . $TODO
+    - /bin/cp -r home/yordanbi/repositories/to-do/public/* $PUBLIC
